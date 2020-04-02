@@ -1,12 +1,10 @@
-import MCP_Neuron
-
-
-def test_neuron():
-    neuron = MCP_Neuron.MCP()
-    entradas = [0, 1, 2]
-    neuron.set_entradas(entradas)
-    print(neuron.evaluate())
+from Perceptron import Perceptron
 
 
 if __name__ == '__main__':
-    test_neuron()
+    entradas = [[0, 0], [0, 1], [1, 0], [1, 1]]
+    saidas = [0, 1, 1, 1]
+    perceptron = Perceptron(entradas, saidas, 1)
+    perceptron.treinar()
+    for i in range(len(entradas)):
+        print(perceptron.calcula_saida(entradas[i]))
