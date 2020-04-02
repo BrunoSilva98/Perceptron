@@ -35,11 +35,22 @@ class Perceptron:
 
     def treinar(self, epochs=100):
         for _ in range(epochs):
-            for entradas, saidas in zip(self._inputs, self._saidas):
-                for neuronio in self._neuronios:
+            print("---Treinando---Epoch " + str(_+ 1) + "/" + str(epochs))
+            if len(self._neuronios) == 1:
+                for entradas, saidas in zip(self._inputs, self._saidas):
+                    neuronio = self._neuronios[0]
                     neuronio.set_entradas(entradas)
                     saida_calculada = neuronio.evaluate()
                     erro = self.calcula_erro(saida_calculada, saidas)
                     neuronio.update_weights(erro, self._taxa_aprendizagem)
+            else:
+                for entradas, saidas in zip(self._inputs, self._saidas):
+                    for idx in range(len(saidas)):
+                        saida = saidas[idx]
+                        neuronio = self._neuronios[idx]
+                        neuronio.set_entradas(entradas)
+                        saida_calculada = neuronio.evaluate()
+                        erro = self.calcula_erro(saida_calculada, saida)
+                        neuronio.update_weights(erro, self._taxa_aprendizagem)
 
         self.save_weights()
