@@ -4,40 +4,6 @@ from Perceptron import Perceptron
 from Setting import entrada_alfabeto, saida_alfabeto, saida_a_t
 
 
-def teste_portas_logicas():
-    entradas = [[0, 0], [0, 1], [1, 0], [1, 1]]
-    saidas = [0, 0, 0, 1]
-    perceptron = Perceptron(entradas, saidas, 1)
-    perceptron.treinar(epochs=100)
-    for i in range(len(entradas)):
-        print(perceptron.calcula_saida(entradas[i]))
-
-
-def teste_letra():
-    entradas = list()
-    saidas = list()
-    for i in range(2):
-        entradas.append(gera_vetor_aleatorio(26))
-        saidas.append(gera_vetor_aleatorio(5))
-    print(entradas)
-
-    perceptron = Perceptron(entradas, saidas, 5)
-    perceptron.treinar(epochs=300)
-    print("Saida 0 = ", end="")
-    print(saidas[0])
-    print("Saida 1 = ", end="")
-    print(saidas[1])
-    for i in range(len(entradas)):
-        print(perceptron.calcula_saida(entradas[i]))
-
-
-def gera_vetor_aleatorio(tamanho):
-    vet = list()
-    for i in range(tamanho):
-        vet.append(random.randint(0, 1))
-    return vet
-
-
 if __name__ == '__main__':
     key = 0
 
@@ -53,12 +19,17 @@ if __name__ == '__main__':
             print("Escolha entre a letra 'A' ou 'T':")
             entrada = input().upper()
             print("A matriz correspondente é: {}".format(entrada_alfabeto[entrada]))
+
+            print("\nDigite a quantidade de epocas para treinamento: ")
+            epocas = int(input())
+
             entradas_perceptron = entrada_alfabeto[entrada]
             saida_perceptron = saida_a_t[entrada]
             perceptron = Perceptron(inputs=entradas_perceptron, saidas=saida_perceptron, qtde_neuronios=1)
-            perceptron.treinar()
+            perceptron.treinar(epochs=epocas)
             for i in range(len(entradas_perceptron)):
-                print("\nA saída da letra {} é: {}".format(entrada, perceptron.calcula_saida(entradas_perceptron[i])))
+                print("\nA saída correta da letra {} é : {}".format(entrada, saida_a_t[entrada]))
+                print("A saída obtida do perceptron é: {}".format(perceptron.calcula_saida(entradas_perceptron[i])))
             input()
 
         elif key == '2':
@@ -74,5 +45,6 @@ if __name__ == '__main__':
             perceptron.treinar(epochs=int(epocas))
 
             for i in range(len(entradas_perceptron)):
-                print("A saída da letra {} é: {}".format(entrada, perceptron.calcula_saida(entradas_perceptron[i])))
-        input()
+                print("\nA saída correta da letra {} é : {}".format(entrada, saida_alfabeto[entrada]))
+                print("A saída obtida do perceptron é: {}".format(perceptron.calcula_saida(entradas_perceptron[i])))
+            input()

@@ -56,9 +56,10 @@ class Perceptron:
             saidas_neuronios.append(neuronio.evaluate())
         return saidas_neuronios
 
-    def treinar(self, epochs=100):
+    def treinar(self, epochs=100, verbose=True):
         for _ in range(epochs):
-            print("---Treinando---Epoch " + str(_+ 1) + "/" + str(epochs))
+            if verbose:
+                print("---Treinando---Epoch " + str(_+ 1) + "/" + str(epochs))
             if len(self._neuronios) == 1:
                 for entradas, saidas in zip(self._inputs, self._saidas):
                     neuronio = self._neuronios[0]
